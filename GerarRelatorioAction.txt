@@ -1,0 +1,94 @@
+//Created by MyEclipse Struts
+// XSL source (default): platform:/plugin/com.genuitec.eclipse.cross.easystruts.eclipse_4.1.1/xslt/JavaClass.xsl
+
+package com.maladireta.action;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+
+import com.maladireta.bean.CidadaoBean;
+import com.maladireta.bo.CidadaoBO;
+import com.maladireta.bo.ParametroBO;
+import com.maladireta.util.Constantes;
+import com.maladireta.util.Datas;
+import com.maladireta.util.Relatorio;
+
+/** 
+ * MyEclipse Struts
+ * Creation date: 02-21-2008
+ * 
+ * XDoclet definition:
+ * @struts.action path="/gerarRelatorio" name="CidadaoBean" scope="request" validate="true"
+ * @struts.action-forward name="sucesso" path="/maladireta/relatorio.jsp"
+ */
+public class GerarRelatorioAction extends Action {
+
+	// --------------------------------------------------------- Instance Variables
+
+	// --------------------------------------------------------- Methods
+
+	/** 
+	 * Method execute
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return ActionForward
+	 */
+	public ActionForward execute(
+		ActionMapping mapping,
+		ActionForm form,
+		HttpServletRequest request,
+		HttpServletResponse response) {
+		
+		CidadaoBean cidadaoBean = (CidadaoBean) form;
+		
+		//mensagens de erro e sucesso
+		ActionMessages messages = new ActionMessages();
+                
+        try {
+            //tipo de pdf a ser gerado
+            String relatorio = cidadaoBean.getTipoArquivo()+".jasper";
+                       
+            //parâmetros do relatório
+            String contratante = ParametroBO.getParametro(Constantes.PESSOA_CONTRATANTE);
+            String nome_sistema = ParametroBO.getParametro(Constantes.NOME_SISTEMA);
+            
+            String data = Datas.getDataAtual(Datas.SEPARADOR_DATA_FE,Datas.DIA,Datas.MES,Datas.ANO);
+                        
+            //busca os dados do relatorio
+            CidadaoBO cidadaoBO = new CidadaoBO();
+            ArrayList listaCidadaos = cidadaoBO.geraRelatorio(cidadaoBean,cidadaoBean.getTipoArquivo());
+            cidadaoBO = null;
+            
+            HashMap parametros = new HashMap();
+            parametros.put("PATH_IMAGENS",Constantes.PATH_IMAGENS);
+            parametros.put("DATA",data);
+            parametros.put("TITULO",nome_sistema+"-"+contratante);
+            parametros.put("TOTAL",new Integer(listaCidadaos.size()));
+            
+            //gerando o relatório apenas com o restante
+			Relatorio.printReportToPdf(relatorio,parametros,listaCidadaos,response);
+        }
+        catch(Exception e) {
+        	e.printStackTrace();
+            ActionMessage  message  = new ActionMessage(e.getMessage());
+			messages.add(ActionMessages.GLOBAL_MESSAGE,message);
+			saveErrors(request,messages);
+        } 
+		
+		return mapping.findForward(Constantes.SUCESSO);
+	}
+
+}
+
