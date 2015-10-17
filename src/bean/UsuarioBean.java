@@ -88,7 +88,7 @@ public class UsuarioBean {
 			usuarioBean.setNmsexo(request.getParameter("sexo"));
 			usuarioBean.setIdsetor(Integer.parseInt(request.getParameter("setor")));
 			String data = request.getParameter("data");						
-		//	String d = Data.converteData2(data);			
+		
 			String d = Data.formataData(data);			
 			usuarioBean.setData(d);							        			
 			UsuarioDao usuarioDao = new UsuarioDao();
