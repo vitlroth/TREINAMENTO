@@ -3,6 +3,9 @@
 <%@include file="verifica_sessao.jsp" %>
 <head>
 <title>Usuario Manutenção</title>
+<link href="../resources/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link href="../resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />     
+
 </head>
 <%
 	String acao = request.getParameter("acao");
@@ -22,10 +25,9 @@
 	}
 
 	if(usuarioBean!=null){
-
 %>
 <script type="text/javascript" src="../js/valida_data.js"></script>
-<script type="text/javascript">
+<script type="text/javascript"  title="Bom dia" >
 	function incluimod(){	
 		document.forms[0].acao.value = "alterar";		
 		document.forms[0].action = "modulos_lista.jsp";
@@ -35,6 +37,14 @@
 		document.forms[0].action = "principal.jsp";
 		document.forms[0].submit();
 	}
+	
+	function retornapesquisar(){
+		document.forms[0].action = "usuario_pesquisa.jsp";
+		document.forms[0].submit();		
+	}
+	
+	
+	
 	function valida() {	
 		
 		if (document.forms[0].nome.value == "") {
@@ -80,31 +90,46 @@
 </script>
 <body>
 <form method="post">
-<table border="1">
-	<tr>
-		<td><font face="verdana" size="3">Manutenção de Usuarios</font></td>
-	</tr>
-	<tr>
-		<td><font face="verdana" size="3"><%if(msg!=null){out.println(msg);}%></font></td>
-	</tr>
-	<tr>
-		<td><font face="verdana">Nome:</font><input type="text" name="nome" value="<%=usuarioBean.getNmusuario()%>"></td>
-	</tr>
-	<tr>
-		<td><font face="verdana">Login:</font><input type="text" name="login" value="<%=usuarioBean.getNmlogin() %>"></td>
-	</tr>
-	<tr>
-		<td><font face="verdana">Senha:</font><input type="password"
-			name="senha" value="<%=usuarioBean.getNmsenha()%>"></td>
-	</tr>
-	<tr>
-	<td><font face="verdana">Sexo:</font>
-		<input type="radio" name="sexo"  <%=usuarioBean.getNmsexo().equals("M") ? "checked=\"checked\"" : ""%>   value="M"><font face="verdana">Masculino</font> 
-		<input type="radio" name="sexo"   <%=usuarioBean.getNmsexo().equals("F") ? "checked=\"checked\"" : "" %> value="F"><font face="verdana">Feminino</font>
-	</td>
-	</tr>
-	<tr>
-		<td><font face="verdana">Setor :</font> <select name="setor">
+<div class="container">
+<div align="center">
+<h1><font face="verdana" size="3">Manutenção de Usuarios</font></h1>
+<font face="verdana" size="3"><%if(msg!=null){out.println(msg);}%></font>
+</div>
+<div class="form-row">
+<div class="form-group col-md-8">
+<label for="nome" class="col-sm-2 col-form-label">Nome</label>
+<input type="text" name="nome" class="form-control" value="<%=usuarioBean.getNmusuario()%>">
+</div>
+</div>
+
+<div class="form-row">
+<div class="form-group col-md-4">
+<label for="login" class="col-sm-2 col-form-label">Login</label>
+<input type="text" name="login"  class="form-control"  value="<%=usuarioBean.getNmlogin() %>">	
+</div>
+<div class="form-group col-md-4">
+<label for="senha" class="col-sm-2 col-form-label">Senha</label>
+<input type="password" class="form-control"	name="senha" value="<%=usuarioBean.getNmsenha()%>">
+</div>
+</div>
+<fieldset class="form-group">
+<div class="row">
+<H3  align="left"    class="col-sm-2 col-form-label">Sexo</H3>>
+<div class="col-sm-10">
+<div class="form-check">
+<input type="radio" class="form-check-input" name="sexo"  <%=usuarioBean.getNmsexo().equals("M") ? "checked=\"checked\"" : ""%>   value="M">Masculino
+</div>
+<div class="form-check">
+<input type="radio" class="form-check-input" name="sexo"   <%=usuarioBean.getNmsexo().equals("F") ? "checked=\"checked\"" : "" %> value="F">Feminino
+</div>
+</div>
+</div>
+</fieldset>
+
+<div class="form-row">
+<div class="form-group  col-md-2">
+<label  class="form-check-label">Setor</label>	
+<select name="setor" class="custom-select custom-select-sm">
 			<option value="0">selecione</option>
 			<%
 			SetorBean setor = new SetorBean();
@@ -123,28 +148,39 @@
 			}																	
 			}						
 			%>
-		</select></td>
-	</tr>
-	<tr>
-		<td><font face="verdana">Data de Nascimento:</font> <input type="text" name="data" value="<%= usuarioBean.getData()%>"><font face="verdana">(dd/mm/aaaa)</font></td>
-	</tr>
-	<tr>
-		<td><input type="button" value="alterar" onclick="valida()"></td>
-	</tr>
-	<tr>
-		<td><input type="hidden" name="acao"></td>
-	</tr>
-	<tr>
-		<td><input type="hidden" name="idusuario" value="<%=usuarioBean.getIdusuario()%>"></td>
-	</tr>
-	<tr>
-		<td><a href="javascript:retornaprincipal()"><font face="verdana">Principal</font></a>
-	</tr>
-	<tr>
-		<td><a href="javascript:incluimod()"><font face="verdana">Módulos</font></a>
-	</tr>
-</table>
+		</select>						
+	</div>								
+</div>
+<div class="form-row">
+<div class="form-group col-md-2">
+	<label class="form-check-label">Data de Nascimento </label>
+	<input type="text"  class="form-control"  name="data" value="<%=usuarioBean.getFormataData(usuarioBean.getDataNascimento().getTime())%>">
+	<label class="col-sm-2 col-form-label">(dd/mm/aaaa)</label>
+	</div>	
+</div>
+						
+	<div>
+		<input type="button"  class="btn btn-primary"   value="alterar" onclick="valida()">
+	</div>	
+			<div>
+			<input type="hidden" name="acao">
+			</div>
+			<div>
+			<input type="hidden" name="idusuario" value="<%=usuarioBean.getIdusuario()%>">
+			</div>
+		<div>
+		<a href="javascript:retornaprincipal()">Principal</a>
+		<br>
+		<a href="javascript:incluimod()">Módulos</a>
+		<br>
+		<a href="javascript:retornapesquisar()"  class="btn btn-default btn-lg">
+		<span class="glyphicon glyphicon-search"></span> Pesquisar novamente
+		</a>				
 <% } %>
+</div>
+
+
+</div>
 </form>
 </body>
 </html>

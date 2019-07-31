@@ -1,0 +1,71 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1" import="bean.UsuarioBean"%>
+<%@include file="verifica_sessao.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Cadastro de Usuários</title>
+<link href="../resources/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<%
+	String idusuario = request.getParameter("idusuario");
+	String acao = request.getParameter("acao");
+%>
+<script type="text/javascript">
+	function retornar(idusuario) {
+		document.forms[0].acao.value = "modulo";
+		document.forms[0].idusuario.value = idusuario;
+		document.forms[0].action = "principal.jsp";
+		document.forms[0].submit();
+	}
+	function envia(idusuario) {
+		document.forms[0].idusuario.value = idusuario;
+		document.forms[0].action = "usuario_pesquisa.jsp";
+		document.forms[0].submit();
+	}
+	function enviaId(idusuario) {
+		document.forms[0].idusuario.value = idusuario;
+		document.forms[0].action = "usuario_inclusao.jsp";
+		document.forms[0].submit();
+
+	}
+</script>
+<body>
+	<form method="post">
+
+		<div class="card" style="width: 18rem;">
+			<img src="../imagens/java.gif" alt="Card IMG TOP"
+				class="card-img-top">
+			<div class="card-body">
+<h5 class="card-title">Cadastro de usuarios</h5>
+				<dl>
+					
+					<dd>
+						<a href="javascript:enviaId('<%=idusuario%>')"><font
+							face="verdana">Inclusão de usuarios</font></a>
+					</dd>
+					<dt></dt>
+					<dd>
+						<a href="javascript:envia('<%=idusuario%>')"><font
+							face="verdana">Pesquisa de usuarios</font></a>
+					</dd>
+					<dt></dt>
+					<dd>
+						<input type="button" class="btn btn-primary" value="voltar"
+							onclick="retornar('<%=idusuario%>')">
+					</dd>
+				</dl>
+			</div>
+			<!-- fim .card-body -->
+
+		</div>
+		<!-- fim .card -->
+		<input type="hidden" name="idusuario"> <input type="hidden"
+			name="acao">
+	</form>
+</body>
+</html>

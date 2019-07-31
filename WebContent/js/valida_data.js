@@ -3,7 +3,7 @@ function valida_data(data) {
 
 	var data_tamanho = data.length;
 	if (data_tamanho != 10) {	
-		alert("Formato de data inválido");
+		alert("Formato de data invÃ¡lido");
 		return false;
 	}
 	if (data.charAt(2) != "/" || data.charAt(5) != "/") {
@@ -17,29 +17,29 @@ function valida_data(data) {
 	var ano_atual = data_hoje.getFullYear();
 	// var ano_atual = data_hoje.getYear();
 
-	if (isNaN(dia)) { // funcão isNaN verifica se o valor não é nulo
-		alert("Por favor, use apenas números para preencher o campo ");
+	if (isNaN(dia)) { // funcï¿½o isNaN verifica se o valor nï¿½o ï¿½ nulo
+		alert("Por favor, use apenas nï¿½meros para preencher o campo ");
 		return false;
 	}
 
 	if (dia > 31 || dia <= 0) {
-		alert("Dia inválido");
+		alert("Dia invï¿½lido");
 		return false;
 	}
-	if (isNaN(mes)) { // funcão isNaN verifica se o valor não é nulo
-		alert("Por favor, use apenas números para preencher o campo ");
+	if (isNaN(mes)) { // funcï¿½o isNaN verifica se o valor nï¿½o ï¿½ nulo
+		alert("Por favor, use apenas nï¿½meros para preencher o campo ");
 		return false;
 	}
 	if (mes > 12 || mes <= 0) {
-		alert("Mês inválido");
+		alert("Mï¿½s invï¿½lido");
 		return false;
 	}
-	if (isNaN(ano)) {// funcão isNaN verifica se o valor não é nulo
-		alert("Por favor, use apenas números para preencher o campo ");
+	if (isNaN(ano)) {// funcï¿½o isNaN verifica se o valor nï¿½o ï¿½ nulo
+		alert("Por favor, use apenas nï¿½meros para preencher o campo ");
 		return false;
 	}
 	if (ano > ano_atual || ano < 1700) {
-		alert("ano inválido");
+		alert("ano invï¿½lido");
 		return false;
 	}
 

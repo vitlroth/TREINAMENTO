@@ -4,6 +4,8 @@
 <html>
 <head>
 <title>Modulos lista</title>
+<link href="../resources/bootstrap/css/bootstrap.css" rel="stylesheet" />
+<link href="../resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
 <%
@@ -85,7 +87,7 @@
 	}
 </script>
 <form method="post">
-<table border="1">
+<table border="1" class="table table-striped">
 	<tr>
 		<td colspan="2"><font face="verdana">Modulos-Vinculados</font>
 	</tr>
@@ -136,10 +138,15 @@
 		<td><input type="button" value="Desvincular"  onclick="desvincular()"></td>
 	</tr>
 </table>
-<table border="1">
+<table border="1" class="table table-striped">
+<thead class="thead-dark">
 	<tr>
 		<td><font face="verdana">Modulos-Não Vinculados</font></td>
 	</tr>
+</thead>
+<tbody>
+
+
 	<tr>
 		<td><font face="verdana"> <%
  	if (msg != null) {
@@ -171,6 +178,7 @@
 	<tr>
 		<td><a href="javascript:retornar()"><font face="verdana">usuario</font></a></td>
 	</tr>
+</tbody>
 </table>
 <input type="hidden" name="acao"> <input type="hidden" name="idmodulos">
 <input type="hidden" name="idusuario" value="<%=user.getIdusuario()%>"> 

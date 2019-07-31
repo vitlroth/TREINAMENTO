@@ -19,7 +19,7 @@ public class Conexao {
     private final String driverName = "org.postgresql.Driver";
     private final String username =  "postgres";
     private final String password =  "postgres";              
-    private final String url = "jdbc:postgresql://localhost/treinamento";      
+    private final String url = "jdbc:postgresql://localhost:5433/postgres";      
     
     public Conexao() throws Exception {
 		try {

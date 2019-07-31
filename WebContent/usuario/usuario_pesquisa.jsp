@@ -4,6 +4,9 @@
 <html>
 <head>
 <title>Pesquisa de usuários</title>
+<link href="../resources/bootstrap/css/bootstrap.css" rel="stylesheet" />  
+<link href="../resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" /> 
+<link href="../resources/bootstrap/css/bootstrap.grid.css" rel="stylesheet" />
 </head>
 <%
 	String idusuario = request.getParameter("idusuario");
@@ -44,31 +47,49 @@
 </script>
 <body>
 <form method="post">
-<table>
-	<tr>
-		<td><font face="verdana">Usuario Pesquisa</font></td>
-	</tr>
-	<tr>
-		<td><font face="verdana">Nome:</font><input type="text"
-			name="nome"></td>
-	</tr>
-	<tr>
-		<td><font face="verdana">Login:</font><input type="text"
-			name="login"></td>
-	</tr>
-	<tr>
-		<td><input type="button" value="pesquisar" onclick="valida('<%=idusuario %>')">
-		<font face="verdana">Tipo:</font> <select name="opcao">
+<div class="container">
+<div class="form-row">
+<div class="form-group col-md-6" align="center">
+<h2 class="display-4">Usuario Pesquisa</h2>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group col-md-6">
+<label for="nome">Nome:</label>
+<input type="text" class="form-control" id="nome"  placeholder="nome" >
+</div>
+</div>
+<div class="form-row">
+<div class="form-group col-md-6">
+<label for="login">Login:</label>
+<input type="text" class="form-control" id="login" placeholder="login">
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<input type="button" class="btn btn-primary" value="pesquisar" onclick="valida('<%=idusuario %>')">
+ 
+</div>
+</div>
+<div class="form-row">
+<div class="form-group col-md-6">
+<label>Tipo:</label>
+<select name="opcao">
 			<option value="0">selecione</option>
 			<option value="1">PDF</option>
 			<option value="2">CSV</option>
-		</select> <input type="button" value="listar" onclick="listar()"></td>
-	</tr>
-	<tr>
-		<td><input type="button" value="voltar" onclick="retornar('<%=idusuario%>')"></td>
-	</tr>
-</table>
+</select> 
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<input type="button" class="btn btn-primary" value="listar" onclick="listar()">
+<input type="button" class="btn btn-primary" value="voltar" onclick="retornar('<%=idusuario%>')">
+</div>
+</div>
 <input type="hidden" name="idusuario">
-<input type="hidden" name="acao"></form>
+<input type="hidden" name="acao">
+</div>
+</form>
 </body>
 </html>
