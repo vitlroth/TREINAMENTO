@@ -1,22 +1,36 @@
 package bean;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import dao.ProdutoDao;
+import dao.UsuarioDao;
+import util.Relatorio;
 
 public class ProdutoBean {
 
-	private Integer id;
+	private Integer idproduto;
 	private String nome;
 	private String datacotacao;
 	private String unidade;
+	private String empAux;
 	private Double valor;
 	private EmpresaBean emp;
 	private String numeroDeRegistros;
 	private String sequenciaRegistros;
 	public int cont;
+	
+	public void setEmpAux(String empAux) {
+		this.empAux = empAux;
+	}
+	
+	public String getEmpAux() {
+		return empAux;
+	}
 
 	public String getSequenciaRegistros() {
 		return sequenciaRegistros;
@@ -42,12 +56,14 @@ public class ProdutoBean {
 		this.emp = emp;
 	}
 
-	public Integer getId() {
-		return id;
+
+
+	public Integer getIdproduto() {
+		return idproduto;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setIdproduto(Integer idproduto) {
+		this.idproduto = idproduto;
 	}
 
 	public String getNome() {
@@ -81,6 +97,39 @@ public class ProdutoBean {
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
+	
+
+	
+	
+	
+	/**
+	 * Método responsavel de gerar Relatório apartir de uma lista 
+	 * @param request
+	 * @param response
+	 */
+	public void gerarRelatorioPdf(HttpServletRequest request, HttpServletResponse response) {
+		// caminho do relatório		
+		String path = "C:\\Users\\vitlr\\workspace\\treinamento\\WebContent\\relatorios\\rel_produtos.jasper";
+		HashMap<String, Object> hs = new HashMap<>();
+		Calendar r =  Calendar.getInstance();
+		hs.put("Data", r.getTime());
+		ProdutoDao dao = new ProdutoDao();		
+		ArrayList<ProdutoBean> lista;
+		try {
+			
+			lista = dao.getlistar();
+			Relatorio.gerarPDF(path, hs, lista, response);
+
+		} catch (Exception e) {
+		
+			e.printStackTrace();
+			System.out.println("Erro ao gerar relatorio PDF produtoBean");
+		}
+							
+	}
+	
+	
+	
 
 	public ArrayList<ProdutoBean> lista(HttpServletRequest request) {
 		ArrayList<ProdutoBean> l = null;

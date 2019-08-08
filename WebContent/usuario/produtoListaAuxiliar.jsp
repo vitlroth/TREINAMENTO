@@ -10,7 +10,14 @@
 	String acao = request.getParameter("acao");
 	String idusuario = request.getParameter("idusuario");
 	ArrayList<ProdutoBean> listao = null;
-	ProdutoBean bean = new ProdutoBean();		
+	ProdutoBean bean = new ProdutoBean();	
+	ProdutoBean beanRel = null;	
+
+	if(acao.equals("gerarPdf")){
+		
+		beanRel = new ProdutoBean();
+		beanRel.gerarRelatorioPdf(request, response);
+	}		
 %>
 <%!public int Converter(String str) {
 		int convrtr = 0;
@@ -87,6 +94,20 @@
 		document.forms[0].example_length.value = x;	
 		document.forms[0].submit();		
 	}	
+	
+	
+	function gerarPdf(){
+	
+		document.forms[0].acao.value = "gerarPdf";
+		document.forms[0].idusuario.value = idusuario;  
+		document.forms[0].action = "produtoListaAuxiliar.jsp";
+		document.forms[0].submit();
+		
+	}
+	
+	
+	
+	
 </script>
 <body>
 	<form method="get">
@@ -105,7 +126,7 @@
 						<thead>
 						    <tr role="row">
 	                           <th>    
-	                           <select name="example_length"   onchange="armazena(this.value)">	
+	                           <select name="example_length"   onchange="armazena(this.value)" class="form-control input-sm">	
 	                           <option value="10" >selecione</option>  
 	                           <option value="10" >10</option>
 	                           <option value="20">20</option>
@@ -146,7 +167,7 @@
 						%>
 						<tbody>
 							<tr>
-								<td><%=rsPgin.getId()%></td>
+								<td><%=rsPgin.getIdproduto()%></td>
 								<td><%=rsPgin.getNome()%></td>
 								<td><%=rsPgin.getUnidade()%></td>
 								<td><%=rsPgin.getValor()%></td>
@@ -175,7 +196,8 @@
 							%>
 							<tr>
 								<td colspan="3">
-									<div>
+								<nav aria-label="Page navigation example">
+								 <ul class="pagination">
 <% 
      // Create index of pages  
     int i=0; 
@@ -187,7 +209,10 @@
         if((cPge*iTotSrhRcrds)-(iTotSrhRcrds)>0) 
             { 
         %> 
-        <a href="produtoListaAuxiliar.jsp?iPagNo=<%=prePageNo%>&cPagNo=<%=prePageNo%>"><<<<<< Previous</a> 
+        
+        
+         
+        <li class="page-item"><a class="page-link" href="produtoListaAuxiliar.jsp?iPagNo=<%=prePageNo%>&cPagNo=<%=prePageNo%>"><<<<<< Previous</a></li> 
         <% 
         } 
            
@@ -196,14 +221,14 @@
             if(i==((iPagNo/iSwRws)+1)) 
             { 
             %> 
-        <a href="produtoListaAuxiliar.jsp?iPagNo=<%=i%>"   style="cursor:pointer;color:red"><b>
-        <%=i%></b></a> 
+        <li class="page-item"><a class="page-link"  href="produtoListaAuxiliar.jsp?iPagNo=<%=i%>"   style="cursor:pointer;color:red"><b>
+        <%=i%></b></a></li> 
             <% 
             } 
             else if(i<=iTotPags) 
             { 
             %> 
-        <a href="produtoListaAuxiliar.jsp?iPagNo=<%=i%>"><%=i%></a> 
+        <li class="page-item"><a class="page-link"  href="produtoListaAuxiliar.jsp?iPagNo=<%=i%>"><%=i%></a></li> 
             <%  
             } 
         } 
@@ -211,11 +236,14 @@
         if(iTotPags>iTotSrhRcrds&& i<iTotPags) 
         { 
          %> 
-        <a href="produtoListaAuxiliar.jsp?iPagNo=<%=i%>&cPagNo=<%=i%>">>>> Next</a> 
+        <li class="page-item"><a class="page-link"  href="produtoListaAuxiliar.jsp?iPagNo=<%=i%>&cPagNo=<%=i%>">>>> Next</a></li>
+         
         <% 
         } 
       } 
       %> 
+       </ul>
+        </nav>
     <b>Rows <%=iStRsNo%> - <%=iEnRsNo%>   
     Total Result  <%=iTotRslts%></b> 
 									</div>
@@ -225,12 +253,14 @@
 					</table>
 				</div>
 			</div>
+			
 		</div>
 		<input type="hidden" name="acao">
 		<input type="hidden" name="idusuario"> 
 		
 		<button class="btn btn-primary" onclick="voltar(<%=idusuario%>)">Voltar</button>
 		<button class="btn btn-primary" onclick="limpar()">Limpar</button>
+		<button class="btn btn-primary" onclick="gerarPdf()">Gerar pdf</button>
 			
 	</form>
 </body>

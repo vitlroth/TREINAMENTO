@@ -1,5 +1,6 @@
 package util;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -37,6 +38,28 @@ public class Teste {
 
 	public static void main(String[] args) {
 
+		
+		try {
+			File f = new File("Teste.java");
+			System.out.println("Nome do arquivo : " + f.getName());
+			System.out.println("Caminho : " + f.getPath());
+			System.out.println("Caminho Absoluto : " + f.getAbsolutePath());
+			
+		} catch (Exception e) {					
+			// Se não encontrar o erro trata a exceção
+			
+			
+			e.getMessage();
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }

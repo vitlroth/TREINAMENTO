@@ -14,12 +14,17 @@ import java.util.HashMap;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import bean.ProdutoBean;
+import bean.UsuarioBean;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import bean.UsuarioBean;
 
 public class Relatorio {
 
@@ -34,12 +39,7 @@ public class Relatorio {
 	 * @throws JRException
 	 * @throws IOException
 	 */
-	public static void printReportToPdf(String relatorio, HashMap<String,Object> parameters, ArrayList<UsuarioBean> dados, HttpServletResponse response) throws JRException, IOException {
-//		static JasperPrint 	JasperFillManager.fillReport(JasperReport jasperReport, java.util.Map<java.lang.String,java.lang.Object> parameters, JRDataSource dataSource) 		
-//	JasperPrint filled = JasperFillManager.fillReport(relatorio, parameters, new JRBeanCollectionDataSource(dados));		
-	// EXPORTAÇÃO DO RELATORIO PARA OUTRO FORMATO , nesse caso PDF..
-//	JasperExportManager.exportReportToPdfFile(filled,"C:\\Users\\Luis\\Documents\\RelatorioClientes.pdf");
-		
+	public static void printReportToPdf(String relatorio, HashMap<String,Object> parameters, ArrayList<UsuarioBean> dados, HttpServletResponse response) throws JRException, IOException {		
 		// Codigo abaixo oferece ao usuario a opção de salvar o arquivo pdf
 		JRDataSource reportSource = new JRBeanCollectionDataSource(dados);
 		byte[] pdf =  JasperRunManager.runReportToPdf(relatorio,parameters,reportSource);		
@@ -51,7 +51,59 @@ public class Relatorio {
 		retornoPDF.close();
 
 	}
-
+				
+	public static void gerarPDF(String relatorio, HashMap<String,Object> parameters, ArrayList<ProdutoBean> lista, HttpServletResponse response) throws JRException, IOException {
+	   	System.out.println("Tentando gerar relaforio");
+		JRDataSource reportSource = new JRBeanCollectionDataSource(lista);
+		System.out.println("Se não ocorreu nenhum erro...");
+		byte[] pdf =  JasperRunManager.runReportToPdf(relatorio,parameters,reportSource);		
+		response.setHeader("Content-Disposition","attachment; filename=\"arquivo.pdf\""); // nome do arquivo enviado para o  navegador;
+		response.setContentType("application/pdf"); // força o download
+		ServletOutputStream retornoPDF = response.getOutputStream();	
+		retornoPDF.write(pdf);
+		retornoPDF.flush();		
+		retornoPDF.close();								
+	}
+					
+	public static void geraRelatorioPdf(String inputStream, HashMap<String, Object> parametros, ArrayList<ProdutoBean> lista, HttpServletResponse response) {		
+		JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(lista);				
+		try {			
+			// Manda o jasper gerar o relatório
+			JasperPrint print = JasperFillManager.fillReport(inputStream, parametros, ds);
+			preencherPdf(print, inputStream);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Erro ao gerar relatorio PDF ");
+		}
+		
+	}	
+	
+/**
+ * Método que retorna o caminho completo ou pasta de aplicação
+ * @return
+ */
+	private String getDiretorioReal() {						
+		return "";
+	}			
+	/**
+	 * Método que retorna o nome da aplicação
+	 * @return
+	 */
+	private String getContextPath() {
+		return "";
+	}
+		
+	private static void preencherPdf(JasperPrint print, String caminho)	 {				
+		try {
+			System.out.println("Preparando para exportar arquivo pdf para o caminho : " + caminho);
+			JasperExportManager.exportReportToPdfFile(print, caminho);
+		} catch (JRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}				
+	}
+	
 	public static void printReportToCSV(File filled,String nomeArquivo,ArrayList<UsuarioBean> dados, HttpServletResponse response) {
 		try {									
 			FileInputStream fileInputStream = new FileInputStream("C:\\Users\\vitlr\\OneDrive" + nomeArquivo);		         
@@ -72,5 +124,5 @@ public class Relatorio {
 		}
 
 		
-	}
+	}		
 }

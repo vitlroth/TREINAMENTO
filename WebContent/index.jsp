@@ -5,18 +5,8 @@
 <head>
 <meta charset="utf-8">
 <title>Login de Usuario</title>
-<!-- 
- * Bootstrap v4.1.3 (https://getbootstrap.com/)
- * Copyright 2011-2018 The Bootstrap Authors
- * Copyright 2011-2018 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- -->
-<!--  <link href="resources/bootstrap/css/bootstrap.css"  rel="stylesheet"  /> -->
- <link href="css/estilo.css" rel="stylesheet" />
-<!-- <link href="resources4.3.1/css/bootstrap.css" rel="stylesheet" /> -->
+<link href="css/estilo.css" rel="stylesheet" />
  <link href="resources/bootstrap/css/bootstrap.css"  rel="stylesheet"  />
-<!-- <link href="resources/bootstrap/js/bootstrap.bundle.min.js"  rel="stylesheet"  />
-<link href="resources/bootstrap/vendor/jquery/jquery.slim.js"  rel="stylesheet"  />   -->
 </head>
 <%
 	String msg01 = request.getParameter("msg01");
@@ -34,12 +24,14 @@
 			document.forms[0].login.focus();
 			return;
 		}
+		
+		
 		if (document.forms[0].senha.value == "") {
 			alert("Campo Senha é obrigatório.");
 			document.forms[0].senha.focus();
 			return;
 		}
-		document.forms[0].acao.value = "acesso";
+		document.forms[0].acao.value = "acesso";		
 		document.forms[0].submit();
 	}
 </script>

@@ -96,9 +96,6 @@ function ir(){
 						<dt>
 						<a href="javascript:enviaIdEmp('<%=idusuario%>')">Listar Empresas</a>						
 						</dt>
-						<dt>						
-						<a href="javascript:manutencaoProd('<%=idusuario%>')">Listar Produtos</a>
-						</dt>
 						<dt>
 						<a href="javascript:manutencaoProdAux('<%=idusuario%>')">Listar Produtos Auxiliares</a>
 						</dt>

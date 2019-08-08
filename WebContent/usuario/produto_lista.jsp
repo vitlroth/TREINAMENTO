@@ -184,7 +184,7 @@
 							</c:forEach> --%>
 						
 <tr>
-<td><%=Xbean.getId() %></td>
+<td><%=Xbean.getIdproduto() %></td>
 <td><%=Xbean.getNome() %></td>
 <td><%=Xbean.getUnidade() %></td>
 <td><%=Xbean.getValor() %></td>

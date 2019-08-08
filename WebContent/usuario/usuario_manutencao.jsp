@@ -154,8 +154,11 @@
 <div class="form-row">
 <div class="form-group col-md-2">
 	<label class="form-check-label">Data de Nascimento </label>
-	<input type="text"  class="form-control"  name="data" value="<%=usuarioBean.getFormataData(usuarioBean.getDataNascimento().getTime())%>">
-	<label class="col-sm-2 col-form-label">(dd/mm/aaaa)</label>
+	<input type="text"  class="form-control"  
+	name="data" value="<%=usuarioBean.getFormataData(usuarioBean.getDataNascimento().getTime())%>">
+	<label >
+	(dd/mm/aaaa)
+	</label>
 	</div>	
 </div>
 						

@@ -44,15 +44,16 @@
 	function retorno() {
 		window.location.replace("http://localhost:8080/treinamento/index.jsp");
 	}
-
-	
-	
+		
 	function ret(id){
 		document.forms[0].action = "cadastro_usuario.jsp";		
 		document.forms[0].submit();
-	}
-	
-	
+	}		
+	function encaminha(){
+		document.forms[0].action = "outros.jsp";
+		document.forms[0].submit();
+		
+	}				
 </script>
 <body>
 <form method="get">
@@ -73,9 +74,8 @@
 			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">FRONT-END</a></li>
 			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#signup">BACK-END</a></li>
 			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#signup">BANCO DE DADOS</a></li>
-			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#signup">GOVERNANÇA</a></li>
-			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#signup">OUTROS</a></li>
-			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="javascript:ret('<%=idusuario%>')">CADASTRO</a></li>
+			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="javascript:encaminha()">OUTROS</a></li>
+			<li class="nav-item"><a class="nav-link js-scroll-trigger" href="javascript:ret('<%=idusuario%>')">ADMINISTRADOR</a></li>
 			</ul>
 			</div>
 		</div>
