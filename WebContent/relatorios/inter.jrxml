@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2b7673d7-8a55-4650-9dd5-c2f35f7fc91e">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="postgres "/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[SELECT p.nome, p.valor, e.nome AS emp FROM produto p
+ INNER JOIN empresa e ON (p.idempresa=e.idempresa)]]>
+	</queryString>
+	<field name="nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="nome"/>
+	</field>
+	<field name="valor" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="valor"/>
+	</field>
+	<field name="emp" class="bean.EmpresaBean">
+		<fieldDescription><![CDATA[emp]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="180" height="30" uuid="153630fa-790a-40e4-9605-5168efb1a61f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c5c0faa7-392d-4b28-92b6-d5e59b16dba4"/>
+				</reportElement>
+				<text><![CDATA[nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="102" height="30" uuid="de5e106d-0139-47a7-98c8-b3e8ff6082a0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dc53528b-f5d4-4369-8483-1c768edf0107"/>
+				</reportElement>
+				<text><![CDATA[valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="100" height="30" uuid="33b862fb-a91e-41aa-80e4-9d8178124a92">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d8329721-c685-419d-8b24-49a58a68b602"/>
+				</reportElement>
+				<text><![CDATA[emp]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="180" height="30" uuid="feb18bcb-b38a-49bb-bdc0-20c59437268c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c5c0faa7-392d-4b28-92b6-d5e59b16dba4"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="102" height="30" uuid="fa80dccd-7b57-4c8c-bead-a9a766f693ae">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dc53528b-f5d4-4369-8483-1c768edf0107"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="100" height="30" uuid="c3d41199-cb62-435e-abcd-5e5a1d157a90">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d8329721-c685-419d-8b24-49a58a68b602"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{emp}.getNome()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
