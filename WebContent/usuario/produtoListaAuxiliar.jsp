@@ -93,21 +93,18 @@
 	function armazena(x){		
 		document.forms[0].example_length.value = x;	
 		document.forms[0].submit();		
-	}	
-	
-	
-	function gerarPdf(){
-	
+	}			
+	function gerarPdf(){	
 		document.forms[0].acao.value = "gerarPdf";
 		document.forms[0].idusuario.value = idusuario;  
 		document.forms[0].action = "produtoListaAuxiliar.jsp";
 		document.forms[0].submit();
 		
-	}
-	
-	
-	
-	
+	}			
+	function limpar(){
+		document.forms[0].acao.value = "limpar";
+		document.forms[0].submit();
+	}			
 </script>
 <body>
 	<form method="get">
@@ -208,10 +205,7 @@
         int prePageNo=(cPge*iTotSrhRcrds)-((iTotSrhRcrds-1)+iTotSrhRcrds);
         if((cPge*iTotSrhRcrds)-(iTotSrhRcrds)>0) 
             { 
-        %> 
-        
-        
-         
+        %>                          
         <li class="page-item"><a class="page-link" href="produtoListaAuxiliar.jsp?iPagNo=<%=prePageNo%>&cPagNo=<%=prePageNo%>"><<<<<< Previous</a></li> 
         <% 
         } 
@@ -260,8 +254,7 @@
 		
 		<button class="btn btn-primary" onclick="voltar(<%=idusuario%>)">Voltar</button>
 		<button class="btn btn-primary" onclick="limpar()">Limpar</button>
-		<button class="btn btn-primary" onclick="gerarPdf()">Gerar pdf</button>
-			
+		<button class="btn btn-primary" onclick="gerarPdf()">Gerar pdf</button>			
 	</form>
 </body>
 </html>

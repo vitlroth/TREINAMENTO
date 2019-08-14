@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//WebContent/relatorios/inter.jrxml=UTF-8
 encoding//WebContent/relatorios/rel_produtos.jrxml=UTF-8
 encoding//WebContent/relatorios/rel_usuarios.jrxml=UTF-8
+encoding//WebContent/relatorios/relatorio.jrxml=UTF-8
 encoding//WebContent/usuario/produtoListaAuxiliar.jsp=UTF-8
 encoding//WebContent/usuario/produto_lista.jsp=UTF-8
 encoding//WebContent/usuario/usuario_lista.jsp=UTF-8

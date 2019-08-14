@@ -1,6 +1,10 @@
 package util;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -26,40 +30,16 @@ public class Teste {
 		return retorno;
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 
-		
-		try {
-			File f = new File("Teste.java");
-			System.out.println("Nome do arquivo : " + f.getName());
-			System.out.println("Caminho : " + f.getPath());
-			System.out.println("Caminho Absoluto : " + f.getAbsolutePath());
-			
-		} catch (Exception e) {					
-			// Se não encontrar o erro trata a exceção
-			
-			
-			e.getMessage();
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		File f = new File("rel_produtos.jasper");
+		FileInputStream fis = new FileInputStream("C:\\Users\\vitlr\\workspace\\treinamento\\WebContent\\relatorios\\rel_produtos.jasper");
+		System.out.println("Nome do arquivo : " + f.getName());
+		System.out.println("Caminho : " + f.getPath());
+		System.out.println("Caminho Absoluto : " + f.getAbsolutePath());
+		String path = "C:\\Users\\vitlr\\workspace\\treinamento\\WebContent\\relatorios\\rel_produtos.jasper";
+//	InputStream inpSt = fis;
+		// Se não encontrar o erro trata a exceção
 	}
-
 }
