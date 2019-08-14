@@ -1,14 +1,20 @@
 package bean;
 
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.lang.Object;
+
 
 import dao.ProdutoDao;
-import dao.UsuarioDao;
 import util.Relatorio;
 
 public class ProdutoBean {
@@ -107,25 +113,27 @@ public class ProdutoBean {
 	 * @param request
 	 * @param response
 	 */
+
 	public void gerarRelatorioPdf(HttpServletRequest request, HttpServletResponse response) {
 		// caminho do relatório		
-		String path = "C:\\Users\\vitlr\\workspace\\treinamento\\WebContent\\relatorios\\rel_produtos.jasper";
-		HashMap<String, Object> hs = new HashMap<>();
-		Calendar r =  Calendar.getInstance();
-		hs.put("Data", r.getTime());
-		ProdutoDao dao = new ProdutoDao();		
-		ArrayList<ProdutoBean> lista;
-		try {
-			
-			lista = dao.getlistar();
-			Relatorio.gerarPDF(path, hs, lista, response);
-
-		} catch (Exception e) {
-		
-			e.printStackTrace();
-			System.out.println("Erro ao gerar relatorio PDF produtoBean");
-		}
-							
+			InputStream relatorio;
+			try {														
+			 HttpSession sessao = request.getSession();				 
+			  relatorio = sessao.getServletContext().getResourceAsStream("relatorios/relatorio.jasper");
+				HashMap<String, Object> hs = new HashMap<>();
+				Calendar r =  Calendar.getInstance();
+				hs.put("Data", r.getTime());
+				ProdutoDao dao = new ProdutoDao();		
+				ArrayList<ProdutoBean> lista;
+				lista = dao.getlistar();
+				Relatorio.gerarPDF(relatorio, hs, lista, response);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				System.out.println("Arquivo não foi encontrado:");
+						}catch (Exception e){
+				e.printStackTrace();
+				System.out.println("Erro ao gerar relatorio PDF produtoBean");
+			}							
 	}
 	
 	
